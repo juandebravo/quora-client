@@ -20,10 +20,13 @@ Just install the gem:
 # How to use Quora Client
 
 > require 'rubygems'
+>
 > require 'quora-client'
-> 
+>
 > cookie ="<valid_value>"
+>
 > client = Quora::Client.new(cookie)
+>
 > user_data = client.get_all
 
 # Support methods
@@ -31,7 +34,11 @@ Just install the gem:
 Currently Quora supported fields include inbox, followers, following and notifs. Each field has an associated method in the client:
 
 > client.get_inbox
+>
 > client.get_followers
+>
 > client.get_following
+>
 > client.get_notifs
+>
 
