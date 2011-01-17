@@ -5,7 +5,7 @@ require 'rake'
 
 $spec = Gem::Specification.new do |s| 
   s.name          = "quora-client"
-  s.version       = "0.1"
+  s.version       = "0.1.1"
   s.date          = Date.today.to_s
 
   s.author        = "Juan de Bravo"
