@@ -15,12 +15,18 @@ module Quora
   # This is the main class to interact with Quora API.
   # 
   # Actually there's no API security mechanism so interaction with API is
-  # based on authentication cookie. You should get all the Quora cookies value
-  # from you browser and use it as argument while creating the Quora client.
+  # based on authentication cookie or web authentication (providing user and password).
+  # If you don't want to expose user credentials You should get all the 
+  # Quora cookies value from you browser and use it as argument while 
+  # creating the Quora client:
   #
   # cookie = "m-b=<m-b-value>; m-f=<m-f-value>; m-s=<m-s-value>; ..."
   #
   # client = Quora::Client.new(cookie)
+  #
+  # Or using user credentials:
+  #
+  # client = Quora::Client.new({:user => valid_user, :password => valid_password})
   #
   # values = client.get_all
   #

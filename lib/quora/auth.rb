@@ -4,11 +4,23 @@ require 'uri'
 require 'cgi'
 
 
+#
+# Quora client enables the communication with Quora API via REST interface
+#
+# (c) Juan de Bravo <juandebravo@gmail.com>
+#
+#
 module Quora
+  #
+  # This mixin provides useful methods for authentication
+  #
   module Auth
 
     QUORA_URI = "http://www.quora.com"
 
+    #
+    # login with Quora user and password
+    #
     def login(user, password)
       endpoint = URI.parse(QUORA_URI)
 
