@@ -4,9 +4,10 @@
 Quora client enables the communication with Quora API via REST
 interface.
 
-Actually there's no API security mechanism so interaction with API is based on authentication cookie. You should get all the Quora cookies value from you browser and use it as argument while creating the Quora client. I know this is unfriendly but I didn't get any other option right now.
+Actually there's no API security mechanism so interaction with API is based on authentication cookie.
+You can provide either a valid cookie or a valid pair user - password.
 
-You can use a local proxy, sniffer, etc to get the correct value, that
+If you want to get the cookie value, you can use a local proxy, sniffer, etc to get the correct value, that
 should be something similar to: 
 
   "m-b=<m-b-value>; m-f=<m-f-value>; m-s=<m-s-value>; ..."
@@ -26,6 +27,10 @@ Just install the gem:
 > cookie ="<valid_value>"
 >
 > client = Quora::Client.new(cookie)
+>
+> # or...
+>
+> client = Quora::Client.new({:user => <user>, :password => <password>})
 >
 > user_data = client.get_all
 

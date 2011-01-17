@@ -2,6 +2,7 @@ require 'rubygems'
 require 'net/http'
 require 'uri'
 require 'json'
+require 'quora/auth'
 
 #
 # Quora client enables the communication with Quora API via REST interface
@@ -25,6 +26,8 @@ module Quora
   #
 
   class Client
+    include Quora::Auth
+
     QUORA_URI = "http://api.quora.com"
 
     RESP_PREFIX = "while(1);"
@@ -34,11 +37,25 @@ module Quora
     SUPPORTED_FIELDS = %W{inbox followers following notifs}
 
     #
-    # Initialize the client. Cookie value must be provided
+    # Initialize the client.
+    # @param [required, string|Hash] User identification. Can be either a valid cookie
+    #               previously authenticated or an Hash with :user and :password
     #
-    def initialize(cookie)
-      if cookie.nil? or !cookie.instance_of?(String)
+    # client = Client.new(valid_cookie)
+    # client = Client.new({:user => valid_user, :password => valid_password})
+    #
+    def initialize(params)
+      if params.nil?
         raise ArgumentError, "Cookie value must be provided"
+      else
+        if params.instance_of?(String)
+          cookie = params
+        elsif params.instance_of?(Hash)
+          user = params[:user]
+          password = params[:password]
+          user.nil? or password.nil? and raise ArgumentError, "user and password must be provided"
+          cookie = login(user, password)
+        end
       end
       @cookie = cookie
     end
@@ -53,7 +70,7 @@ module Quora
 
     #
     # Base method to send a request to Quora API.
-    # @param [reuired, string] supported field (or multiple fields CSV) to retrieve
+    # @param [required, string] supported field (or multiple fields CSV) to retrieve
     # @param [optional, bool] filter if field is a key in result hash, only this
     #       value is returned
     #

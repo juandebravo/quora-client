@@ -15,11 +15,16 @@ require 'quora'
 #
 class TestQuoraClient < Test::Unit::TestCase
 
+  include Quora::Auth
+
   def setup
     if ARGV.length == 0
       @cookie = "invalid value"
-    else
+    elsif ARGV.length == 1
       @cookie = ARGV[0]
+    else
+      @user     = ARGV[0]
+      @password = ARGV[1]
     end
     
   end
@@ -42,10 +47,18 @@ class TestQuoraClient < Test::Unit::TestCase
     }
   end
 
+  def test_login
+    assert_equal login(@user, @password).length > 0, true
+  end
+
   private
 
   def client
-    client = Quora::Client.new(@cookie)
+    if !@user.nil?
+      client = Quora::Client.new({:user => @user, :password => @password})
+    else
+      client = Quora::Client.new(@cookie)
+    end
   end
 end
 

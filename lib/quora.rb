@@ -6,5 +6,5 @@ require 'quora/client'
 # (c) Juan de Bravo <juandebravo@gmail.com>
 #
 module Quora
-  VERSION = "0.0.1"
+  VERSION = "0.0.2"
 end
