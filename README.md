@@ -30,7 +30,7 @@ Just install the gem:
 >
 > # or...
 >
-> client = Quora::Client.new({:user => <user>, :password => <password>})
+> client = Quora::Client.new({:user => "<user>", :password => "<password>"})
 >
 > user_data = client.get_all
 
